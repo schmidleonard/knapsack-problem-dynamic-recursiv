@@ -1,5 +1,7 @@
 package org.example;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
@@ -7,17 +9,72 @@ import java.util.Scanner;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    static String filePath;
+    static Scanner userInput = new Scanner(System.in);
 
-        // Create a Scanner object for reading user input
-        Scanner scanner = new Scanner(System.in);
+    public static void chooseInputType() {
+        System.out.println("Wie sollen die Daten eingelesen werden? \n" +
+                "- Beispieldatei: Drücke '1' \n" +
+                "- Eigene Datei einlesen: Drücke '2' \n" +
+                "- Manuelle Eingabe von Werten: Drücke '3'");
+        int chooseInput = userInput.nextInt();
+        switch (chooseInput) {
+            case 1:
+                sampleFile();
+                break;
+            case 2:
+                ownFilePath();
+                break;
+            case 3:
+                manualInput();  // muss noch gebaut werden!
+                break;
+            default:
+                System.out.println("Wähle eine Option mit '1', '2, oder '3'");
+                chooseInputType();
+        }
 
-        // Prompt the user to enter the file path of the Excel file
+    }
+
+    public static void ownFilePath() {
         System.out.println("Gebe den Dateipfad der Datei an:");
         System.out.println("Beispiel: C:\\\\Users\\\\Username\\\\Documents\\\\Filename.xlsx");
 
         // Read the file path from user input
-        String filePath = scanner.nextLine();
+        filePath = userInput.nextLine();
+    }
+
+    public static void sampleFile() {
+        System.out.println("Welche Dateigröße soll gewählt werden? \n" +
+                           "klein: Drücke 1 \n" +
+                           "groß: Drücke 2");
+        int choose = userInput.nextInt();
+        switch (choose) {
+            case 1:
+                Path filePathSmall = Paths.get("src", "main", "resources", "TestFileSmall.xlsx").toAbsolutePath();
+                filePath = filePathSmall.toString();
+                break;
+            case 2:
+                Path filePathBig = Paths.get("src", "main", "resources", "TestFileBig.xlsx").toAbsolutePath();
+                filePath = filePathBig.toString();
+                break;
+            default:
+                System.out.println("Wähle eine Datei mit '1' oder '2'");
+                sampleFile();
+        }
+
+    }
+
+    public static void manualInput() {
+        // muss noch gebaut werden!
+        System.out.println("Noch ned fertig!");
+    }
+
+
+    public static void main(String[] args) {
+
+        chooseInputType();
+
+
 
         try {
             // Create an instance of KnapsackReader to read the Excel file

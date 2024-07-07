@@ -15,10 +15,10 @@ public class Main {
 
     public static void chooseInputType() {
         System.out.println("""
-                Wie sollen die Daten eingelesen werden?\s
-                - Beispieldatei: Drücke '1'\s
-                - Eigene Datei einlesen: Drücke '2'\s
-                - Manuelle Eingabe von Werten: Drücke '3'""");
+                How should the data be read?\s
+                - Example file: Press '1'\s
+                - Read own file: Press '2'\s
+                - Manual input of values: Press '3'""");
         int chooseInput = userInput.nextInt();
         inputType = chooseInput;
         userInput.nextLine(); // Consume the newline character left by nextInt()
@@ -33,14 +33,14 @@ public class Main {
                 //manualInput
                 break;
             default:
-                System.out.println("Wähle eine Option mit '1', '2, oder '3'");
+                System.out.println("Choose an option with '1', '2', or '3'");
                 chooseInputType();
         }
     }
 
     public static void ownFilePath() {
-        System.out.println("Gebe den Dateipfad der Datei an:");
-        System.out.println("Beispiel: C:\\\\Users\\\\Username\\\\Documents\\\\Filename.xlsx");
+        System.out.println("Please provide the file path of the file:");
+        System.out.println("Example: C:\\\\Users\\\\Username\\\\Documents\\\\Filename.xlsx");
 
         // Read the file path from user input
         filePath = userInput.nextLine();
@@ -48,9 +48,9 @@ public class Main {
 
     public static void sampleFile() {
         System.out.println("""
-                Welche Dateigröße soll gewählt werden?\s
-                klein: Drücke '1'\s
-                groß: Drücke '2'""");
+                What file size should be chosen?\s
+                Small: Press '1'\s
+                Big: Press '2'""");
         int choose = userInput.nextInt();
         switch (choose) {
             case 1:
@@ -62,7 +62,7 @@ public class Main {
                 filePath = filePathBig.toString();
                 break;
             default:
-                System.out.println("Wähle eine Datei mit '1' oder '2'");
+                System.out.println("Choose a file with '1' or '2'");
                 sampleFile();
         }
     }
@@ -92,7 +92,7 @@ public class Main {
 
                 } catch (Exception e) {
 
-                    System.out.println("Etwas ist schief gelaufen. Versuche es erneut.");
+                    System.out.println("Something went wrong. Please try again.");
                     chooseInputType();
                 }
             } else {
@@ -109,16 +109,16 @@ public class Main {
             }
 
             System.out.println("""
-                        Neue Berechnung? \s
-                        Ja: '1' \s
-                        Nein: '2'
+                        New calculation? \s
+                        Yes: '1' \s
+                        No: '2'
                         """);
             int again = userInput.nextInt();
-            userInput.nextLine();
+            userInput.nextLine(); // Consume the newline character left by nextInt()
             switch (again) {
-                case 1:
+                case 1: // Next loop
                     continue;
-                case 2:
+                case 2: // Exit program
                     System.exit(0);
             }
         }

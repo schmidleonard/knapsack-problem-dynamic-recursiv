@@ -45,7 +45,7 @@ public class KnapsackReader extends AbstractExcelReader<Integer> {
      */
     @Override
     public InputData processSheet(int sheetIndex) throws Exception {
-        System.out.println("Verarbeite Blatt mit Index: " + sheetIndex);
+        // System.out.println("Verarbeite Blatt mit Index: " + sheetIndex);
         Sheet sheet = getSheet(sheetIndex);
         List<Integer> columnA = new ArrayList<>();
         List<Integer> columnB = new ArrayList<>();

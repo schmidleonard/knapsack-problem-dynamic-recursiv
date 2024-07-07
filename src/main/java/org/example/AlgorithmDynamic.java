@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public class AlgorithmDynamic implements Runnable {
      * @param columnC List of item values.
      */
     public AlgorithmDynamic(List<Integer> columnA, List<Integer> columnB, List<Integer> columnC) {
-        this.W = columnA.get(0); // Get the knapsack capacity from the first element of columnA
+        this.W = columnA.getFirst(); // Get the knapsack capacity from the first element of columnA
         this.wt = columnB.stream().mapToInt(Integer::intValue).toArray(); // Convert columnB to an array of item weights
         this.val = columnC.stream().mapToInt(Integer::intValue).toArray(); // Convert columnC to an array of item values
     }
@@ -108,7 +107,7 @@ public class AlgorithmDynamic implements Runnable {
                 System.out.println("Weight: " + result[i] + ", Value: " + result[i + 1]);
             }
         } catch (StackOverflowError e) {
-            System.out.println("Zu viele Daten!");
+            System.out.println("Too much data!");
         }
 
         final long timeEnd = System.currentTimeMillis();

@@ -28,15 +28,12 @@ public class AlgorithmDynamic implements Runnable {
 
     /**
      * Method to solve the knapsack problem using dynamic programming.
-     * @param W The maximum weight capacity of the knapsack.
-     * @param wt Array of item weights.
-     * @param val Array of item values.
-     * @param n Number of items.
      * @return An array containing the maximum value at index 0,
      *         followed by the weights and values of the selected items.
      */
-    public static int[] knapSack(int W, int[] wt, int[] val, int n) {
+    public int[] knapSack() {
         int i, w;
+        int n = val.length;
         int[][] K = new int[n + 1][W + 1];
 
         // Build table K[][] in bottom-up manner
@@ -98,8 +95,7 @@ public class AlgorithmDynamic implements Runnable {
     public void run() {
         final long timeStart = System.currentTimeMillis();
         try {
-            int n = val.length;
-            int[] result = knapSack(W, wt, val, n);
+            int[] result = knapSack();
             System.out.println("Maximum value (Dynamic): " + result[0]);
             for (int i = 1; i < result.length; i += 2) {
                 System.out.println("Weight: " + result[i] + ", Value: " + result[i + 1]);

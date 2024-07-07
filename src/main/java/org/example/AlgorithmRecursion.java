@@ -28,14 +28,11 @@ public class AlgorithmRecursion implements Runnable {
 
     /**
      * Method to solve the knapsack problem using recursion.
-     * @param W The maximum weight capacity of the knapsack.
-     * @param wt Array of item weights.
-     * @param val Array of item values.
-     * @param n Number of items.
      * @return An array containing the maximum value at index 0,
      *         followed by the weights and values of the selected items.
      */
-    public static int[] knapSack(int W, int[] wt, int[] val, int n) {
+    public int[] knapSack() {
+        int n = val.length;
         // Lists to store the selected items' weights and values
         List<Integer> selectedWeights = new ArrayList<>();
         List<Integer> selectedValues = new ArrayList<>();
@@ -69,7 +66,7 @@ public class AlgorithmRecursion implements Runnable {
      * @param selectedValues List to store the values of the selected items.
      * @return The maximum value that can be obtained.
      */
-    private static int knapSackRec(int W, int[] wt, int[] val, int n, List<Integer> selectedWeights, List<Integer> selectedValues) {
+    private int knapSackRec(int W, int[] wt, int[] val, int n, List<Integer> selectedWeights, List<Integer> selectedValues) {
         // Base cases
         if (n == 0 || W == 0) {
             return 0;
@@ -115,8 +112,7 @@ public class AlgorithmRecursion implements Runnable {
 
         final long timeStart = System.currentTimeMillis();
         try {
-            int n = val.length;
-            int[] result = knapSack(W, wt, val, n);
+            int[] result = knapSack();
             System.out.println("Maximum value (Recursion): " + result[0]);
             for (int i = 1; i < result.length; i += 2) {
                 System.out.println("Weight: " + result[i] + ", Value: " + result[i + 1]);

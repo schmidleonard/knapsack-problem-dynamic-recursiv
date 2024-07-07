@@ -78,16 +78,17 @@ public class AlgorithmDynamic implements Runnable {
             }
         }
 
-        // Convert lists to arrays
         int[] selectedWeightsArray = selectedWeights.stream().mapToInt(Integer::intValue).toArray();
         int[] selectedValuesArray = selectedValues.stream().mapToInt(Integer::intValue).toArray();
 
         // Create the result array with the maximum value at index 0,
-        // followed by the selected weights and values
-        int[] result = new int[selectedWeightsArray.length + selectedValuesArray.length + 1];
+        // followed by the selected weights and values as pairs
+        int[] result = new int[selectedWeightsArray.length * 2 + 1];
         result[0] = K[n][W]; // Store the maximum value
-        System.arraycopy(selectedWeightsArray, 0, result, 1, selectedWeightsArray.length);
-        System.arraycopy(selectedValuesArray, 0, result, 1 + selectedWeightsArray.length, selectedValuesArray.length);
+        for (int j = 0; j < selectedWeightsArray.length; j++) {
+            result[1 + 2 * j] = selectedWeightsArray[j];
+            result[2 + 2 * j] = selectedValuesArray[j];
+        }
 
         return result;
     }
@@ -103,10 +104,9 @@ public class AlgorithmDynamic implements Runnable {
             int n = val.length;
             int[] result = knapSack(W, wt, val, n);
             System.out.println("Maximum value (Dynamic): " + result[0]);
-            System.out.println("Weights of packed items (Dynamic): " + Arrays.toString(Arrays.copyOfRange(
-                    result, 1, 1 + (result.length - 1) / 2)));
-            System.out.println("Values of packed items (Dynamic): " + Arrays.toString(Arrays.copyOfRange(
-                    result, 1 + (result.length - 1) / 2, result.length)));
+            for (int i = 1; i < result.length; i += 2) {
+                System.out.println("Weight: " + result[i] + ", Value: " + result[i + 1]);
+            }
         } catch (StackOverflowError e) {
             System.out.println("Zu viele Daten!");
         }

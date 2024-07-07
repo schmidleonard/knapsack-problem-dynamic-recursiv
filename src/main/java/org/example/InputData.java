@@ -10,7 +10,7 @@ import java.util.List;
  * @param columnB List of Integer values from column B.
  * @param columnC List of Integer values from column C.
  */
-public record ExcelData(List<Integer> columnA, List<Integer> columnB, List<Integer> columnC) {
+public record InputData(List<Integer> columnA, List<Integer> columnB, List<Integer> columnC) {
 
     /**
      * Overridden toString method to provide a string representation of the ExcelData object.

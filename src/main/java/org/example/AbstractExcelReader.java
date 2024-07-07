@@ -46,5 +46,5 @@ public abstract class AbstractExcelReader<T> {
      * @return An instance of ExcelData containing the processed data.
      * @throws Exception If an error occurs during processing.
      */
-    public abstract ExcelData processSheet(int sheetIndex) throws Exception;
+    public abstract InputData processSheet(int sheetIndex) throws Exception;
 }

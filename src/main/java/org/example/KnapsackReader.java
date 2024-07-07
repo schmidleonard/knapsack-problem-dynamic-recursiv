@@ -44,7 +44,7 @@ public class KnapsackReader extends AbstractExcelReader<Integer> {
      * @throws Exception If there is an error during processing, such as mismatched column sizes.
      */
     @Override
-    public ExcelData processSheet(int sheetIndex) throws Exception {
+    public InputData processSheet(int sheetIndex) throws Exception {
         System.out.println("Verarbeite Blatt mit Index: " + sheetIndex);
         Sheet sheet = getSheet(sheetIndex);
         List<Integer> columnA = new ArrayList<>();
@@ -77,6 +77,6 @@ public class KnapsackReader extends AbstractExcelReader<Integer> {
         }
 
         // Return the processed data encapsulated in an ExcelData object
-        return new ExcelData(columnA, columnB, columnC);
+        return new InputData(columnA, columnB, columnC);
     }
 }

@@ -54,8 +54,10 @@ public class AlgorithmRecursion implements Runnable {
         // followed by the selected weights and values
         int[] result = new int[selectedWeightsArray.length + selectedValuesArray.length + 1];
         result[0] = maxValue; // Store the maximum value
-        System.arraycopy(selectedWeightsArray, 0, result, 1, selectedWeightsArray.length);
-        System.arraycopy(selectedValuesArray, 0, result, 1 + selectedWeightsArray.length, selectedValuesArray.length);
+        for (int i = 0; i < selectedWeightsArray.length; i++) {
+            result[1 + 2 * i] = selectedWeightsArray[i];
+            result[2 + 2 * i] = selectedValuesArray[i];
+        }
 
         return result;
     }
@@ -119,10 +121,9 @@ public class AlgorithmRecursion implements Runnable {
             int n = val.length;
             int[] result = knapSack(W, wt, val, n);
             System.out.println("Maximum value (Recursion): " + result[0]);
-            System.out.println("Weights of packed items (Recursion): " + Arrays.toString(Arrays.copyOfRange(
-                    result, 1, 1 + (result.length - 1) / 2)));
-            System.out.println("Values of packed items (Recursion): " + Arrays.toString(Arrays.copyOfRange(
-                    result, 1 + (result.length - 1) / 2, result.length)));
+            for (int i = 1; i < result.length; i += 2) {
+                System.out.println("Weight: " + result[i] + ", Value: " + result[i + 1]);
+            }
         } catch (StackOverflowError e) {
             System.out.println("Zu viele Daten für Rekursion!");
         }

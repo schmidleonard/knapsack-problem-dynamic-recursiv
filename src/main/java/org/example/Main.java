@@ -11,6 +11,7 @@ public class Main {
 
     static String filePath;
     static Scanner userInput = new Scanner(System.in);
+    static int inputType;
 
     public static void chooseInputType() {
         System.out.println("""
@@ -19,6 +20,7 @@ public class Main {
                 - Eigene Datei einlesen: Drücke '2'\s
                 - Manuelle Eingabe von Werten: Drücke '3'""");
         int chooseInput = userInput.nextInt();
+        inputType = chooseInput;
         switch (chooseInput) {
             case 1:
                 sampleFile();
@@ -27,13 +29,12 @@ public class Main {
                 ownFilePath();
                 break;
             case 3:
-                manualInput();  // muss noch gebaut werden!
+                //manualInput();  // muss noch gebaut werden!
                 break;
             default:
                 System.out.println("Wähle eine Option mit '1', '2, oder '3'");
                 chooseInputType();
         }
-
     }
 
     public static void ownFilePath() {
@@ -63,13 +64,8 @@ public class Main {
                 System.out.println("Wähle eine Datei mit '1' oder '2'");
                 sampleFile();
         }
-
     }
 
-    public static void manualInput() {
-        // muss noch gebaut werden!
-        System.out.println("Noch ned fertig!");
-    }
 
 
     public static void main(String[] args) {
@@ -77,25 +73,39 @@ public class Main {
         chooseInputType();
 
 
+        if (inputType == 1 || inputType == 2) {
+            try {
+                // Create an instance of KnapsackReader to read the Excel file
+                KnapsackReader reader = new KnapsackReader(filePath);
 
-        try {
-            // Create an instance of KnapsackReader to read the Excel file
-            KnapsackReader reader = new KnapsackReader(filePath);
+                // Process the first sheet (index 0) and extract data into an ExcelData object
+                InputData excelData = reader.processSheet(0);
 
-            // Process the first sheet (index 0) and extract data into an ExcelData object
-            ExcelData excelData = reader.processSheet(0);
+                // Create instances of the dynamic and recursion algorithms with the extracted data
+                AlgorithmDynamic dynamicAlgorithm = new AlgorithmDynamic(excelData.columnA(), excelData.columnB(), excelData.columnC());
+                AlgorithmRecursion recursionAlgorithm = new AlgorithmRecursion(excelData.columnA(), excelData.columnB(), excelData.columnC());
 
+                // Run the algorithm threads
+                dynamicAlgorithm.run();
+                recursionAlgorithm.run();
+
+
+            } catch (Exception e) {
+                // Print the stack trace if an exception occurs
+                //e.printStackTrace();
+                System.out.println("Etwas ist schief gelaufen. Versuche es erneut.");
+                chooseInputType();
+            }
+        } else {
+
+            InputData manualData = ManualReader.manualInput();
             // Create instances of the dynamic and recursion algorithms with the extracted data
-            AlgorithmDynamic dynamicAlgorithm = new AlgorithmDynamic(excelData.columnA(), excelData.columnB(), excelData.columnC());
-            AlgorithmRecursion recursionAlgorithm = new AlgorithmRecursion(excelData.columnA(), excelData.columnB(), excelData.columnC());
+            AlgorithmDynamic dynamicAlgorithm = new AlgorithmDynamic(manualData.columnA(), manualData.columnB(), manualData.columnC());
+            AlgorithmRecursion recursionAlgorithm = new AlgorithmRecursion(manualData.columnA(), manualData.columnB(), manualData.columnC());
 
             // Run the algorithm threads
             dynamicAlgorithm.run();
             recursionAlgorithm.run();
-
-        } catch (Exception e) {
-            // Print the stack trace if an exception occurs
-            e.printStackTrace();
         }
     }
 }

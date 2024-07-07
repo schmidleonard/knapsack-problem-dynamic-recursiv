@@ -38,6 +38,7 @@ After starting the program, you will be asked how to input the data:
     Sample File:
         Press '1'.
         Choose between a small (TestFileSmall.xlsx) and a large (TestFileBig.xlsx) file.
+        If the sample files are to be used, they must be placed in the same directory as the .jar file!
     Custom File:
         Press '2'.
         Enter the path to your Excel file.
@@ -46,9 +47,11 @@ After starting the program, you will be asked how to input the data:
         Follow the instructions to enter capacity, weights, and values.
 
 The program runs the algorithms in separate threads and displays the results, including the time taken for both approaches.
-Sample XLSX File
+
+### Sample XLSX File
 
 A blank sample file Blank.xlsx is included in the main directory. You can use this file to enter your own values and test the program.
+It's important that when entering the path of the input file, "\" is specified as "\\"
 
 
 

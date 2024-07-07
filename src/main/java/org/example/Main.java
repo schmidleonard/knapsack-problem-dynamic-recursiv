@@ -13,10 +13,11 @@ public class Main {
     static Scanner userInput = new Scanner(System.in);
 
     public static void chooseInputType() {
-        System.out.println("Wie sollen die Daten eingelesen werden? \n" +
-                "- Beispieldatei: Drücke '1' \n" +
-                "- Eigene Datei einlesen: Drücke '2' \n" +
-                "- Manuelle Eingabe von Werten: Drücke '3'");
+        System.out.println("""
+                Wie sollen die Daten eingelesen werden?\s
+                - Beispieldatei: Drücke '1'\s
+                - Eigene Datei einlesen: Drücke '2'\s
+                - Manuelle Eingabe von Werten: Drücke '3'""");
         int chooseInput = userInput.nextInt();
         switch (chooseInput) {
             case 1:
@@ -44,9 +45,10 @@ public class Main {
     }
 
     public static void sampleFile() {
-        System.out.println("Welche Dateigröße soll gewählt werden? \n" +
-                           "klein: Drücke 1 \n" +
-                           "groß: Drücke 2");
+        System.out.println("""
+                Welche Dateigröße soll gewählt werden?\s
+                klein: Drücke '1'\s
+                groß: Drücke '2'""");
         int choose = userInput.nextInt();
         switch (choose) {
             case 1:

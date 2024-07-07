@@ -47,9 +47,9 @@ public class KnapsackReader extends AbstractExcelReader<Integer> {
     public InputData processSheet(int sheetIndex) throws Exception {
         // System.out.println("Verarbeite Blatt mit Index: " + sheetIndex);
         Sheet sheet = getSheet(sheetIndex);
-        List<Integer> columnA = new ArrayList<>();
-        List<Integer> columnB = new ArrayList<>();
-        List<Integer> columnC = new ArrayList<>();
+        Integer capacity = 0;
+        List<Integer> weights = new ArrayList<>();
+        List<Integer> values = new ArrayList<>();
 
         // Iterate over the rows, starting from 1 to skip the header row
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -59,24 +59,24 @@ public class KnapsackReader extends AbstractExcelReader<Integer> {
                 Integer valueB = getValueFromCell(row.getCell(1));
                 Integer valueC = getValueFromCell(row.getCell(2));
 
-                if (valueA != null) {
-                    columnA.add(valueA);
+                if ((valueA != null) && (i == 1)) {
+                    capacity = valueA;
                 }
                 if (valueB != null) {
-                    columnB.add(valueB);
+                    weights.add(valueB);
                 }
                 if (valueC != null) {
-                    columnC.add(valueC);
+                    values.add(valueC);
                 }
             }
         }
 
         // Check if the sizes of columns B and C are equal
-        if (columnB.size() != columnC.size()) {
-            throw new Exception("Die Anzahl der Integer in Spalte B und C ist nicht gleich groß!");
+        if (weights.size() != values.size()) {
+            throw new Exception("Die Anzahl der Integer in Spalte B (weights) und C (values) ist nicht gleich groß!");
         }
 
         // Return the processed data encapsulated in an ExcelData object
-        return new InputData(columnA, columnB, columnC);
+        return new InputData(capacity, weights, values);
     }
 }

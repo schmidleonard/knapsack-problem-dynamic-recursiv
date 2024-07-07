@@ -18,14 +18,12 @@ public class AlgorithmRecursion implements Runnable {
 
     /**
      * Constructor to initialize the knapsack's capacity and item arrays.
-     * @param columnA List containing the knapsack capacity as its first element.
-     * @param columnB List of item weights.
-     * @param columnC List of item values.
+     * @param data Algorithm input data
      */
-    public AlgorithmRecursion(List<Integer> columnA, List<Integer> columnB, List<Integer> columnC) {
-        this.W = columnA.getFirst(); // Get the knapsack capacity from the first element of columnA
-        this.wt = columnB.stream().mapToInt(Integer::intValue).toArray(); // Convert columnB to an array of item weights
-        this.val = columnC.stream().mapToInt(Integer::intValue).toArray(); // Convert columnC to an array of item values
+    public AlgorithmRecursion(InputData data) {
+        this.W = data.capacity(); // Get the knapsack capacity from the first element of columnA
+        this.wt = data.weights().stream().mapToInt(Integer::intValue).toArray(); // Convert columnB to an array of item weights
+        this.val = data.values().stream().mapToInt(Integer::intValue).toArray(); // Convert columnC to an array of item values
     }
 
     /**

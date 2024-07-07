@@ -97,8 +97,8 @@ public class Main {
 
             }
             // Create instances of the dynamic and recursion algorithms with the extracted data
-            AlgorithmDynamic dynamicAlgorithm = new AlgorithmDynamic(data.columnA(), data.columnB(), data.columnC());
-            AlgorithmRecursion recursionAlgorithm = new AlgorithmRecursion(data.columnA(), data.columnB(), data.columnC());
+            AlgorithmDynamic dynamicAlgorithm = new AlgorithmDynamic(data);
+            AlgorithmRecursion recursionAlgorithm = new AlgorithmRecursion(data);
 
             // Run the algorithm threads
             Thread dynamicThread = new Thread(dynamicAlgorithm);

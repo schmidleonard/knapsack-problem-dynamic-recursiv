@@ -69,6 +69,7 @@ public class Main {
 
 
     public static void main(String[] args) {
+        InputData data;
         while (true) {
             chooseInputType();
 
@@ -79,33 +80,40 @@ public class Main {
                     KnapsackReader reader = new KnapsackReader(filePath);
 
                     // Process the first sheet (index 0) and extract data into an ExcelData object
-                    InputData excelData = reader.processSheet(0);
+                    data = reader.processSheet(0);
 
-                    // Create instances of the dynamic and recursion algorithms with the extracted data
-                    AlgorithmDynamic dynamicAlgorithm = new AlgorithmDynamic(excelData.columnA(), excelData.columnB(), excelData.columnC());
-                    AlgorithmRecursion recursionAlgorithm = new AlgorithmRecursion(excelData.columnA(), excelData.columnB(), excelData.columnC());
-
-                    // Run the algorithm threads
-                    dynamicAlgorithm.run();
-                    recursionAlgorithm.run();
 
 
                 } catch (Exception e) {
-
+                    System.out.println(e.getMessage());
                     System.out.println("Something went wrong. Please try again.");
-                    chooseInputType();
+                    continue;
+
                 }
             } else {
 
-                InputData manualData = ManualReader.manualInput();
-                // Create instances of the dynamic and recursion algorithms with the extracted data
-                AlgorithmDynamic dynamicAlgorithm = new AlgorithmDynamic(manualData.columnA(), manualData.columnB(), manualData.columnC());
-                AlgorithmRecursion recursionAlgorithm = new AlgorithmRecursion(manualData.columnA(), manualData.columnB(), manualData.columnC());
+                data = ManualReader.manualInput();
 
-                // Run the algorithm threads
-                dynamicAlgorithm.run();
-                recursionAlgorithm.run();
 
+            }
+            // Create instances of the dynamic and recursion algorithms with the extracted data
+            AlgorithmDynamic dynamicAlgorithm = new AlgorithmDynamic(data.columnA(), data.columnB(), data.columnC());
+            AlgorithmRecursion recursionAlgorithm = new AlgorithmRecursion(data.columnA(), data.columnB(), data.columnC());
+
+            // Run the algorithm threads
+            Thread dynamicThread = new Thread(dynamicAlgorithm);
+            Thread recursionThread = new Thread(recursionAlgorithm);
+            dynamicThread.start();
+            recursionThread.start();
+            try {
+                System.out.println("Waiting for the dynamic algorithm to finish...");
+                dynamicThread.join();
+                System.out.println("waiting for the recursive algorithm to finish...");
+                recursionThread.join();
+            } catch (InterruptedException e) {
+                dynamicThread.stop();
+                recursionThread.stop();
+                System.out.println("Both Threads stopped");
             }
 
             System.out.println("""

@@ -10,18 +10,20 @@ public class ManualReader {
         Scanner userInput = new Scanner(System.in);
         List<Integer> weights = new ArrayList<>();
         List<Integer> values = new ArrayList<>();
-        Integer capacity = 0;
+        Integer capacity = -1;
         String input;
 
 
-        System.out.println("Please enter the capacity of the backpack.");
-        //input = userInput.nextLine();
-        try {
-            capacity = userInput.nextInt();
-            userInput.nextLine(); // Consume the newline character left by nextInt()
-        } catch (NumberFormatException e) {
-            System.out.println("Please enter a valid number.");
-            // TODO: if incorrect input is provided, this error is printed out, but no more possibility to enter correct capacity!
+        System.out.println("Please enter the capacity of the backpack (a non-negative number).");
+        while (capacity < 0) {
+            try {
+                capacity = Integer.parseInt(userInput.nextLine());
+                if (capacity < 0) {
+                    System.out.println("The capacity has to be a non-negative number, please try again.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid capacity.");
+            }
         }
         while (true) {
             System.out.print("Enter the weight (or 'exit' when all values are entered): ");
@@ -38,10 +40,8 @@ public class ManualReader {
             }
 
             System.out.print("Enter the value: ");
-            input = userInput.nextLine();
             try {
-                int value = Integer.parseInt(input);
-                values.add(value);
+                values.add(Integer.parseInt(userInput.nextLine()));
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a valid number.");
                 weights.removeLast();

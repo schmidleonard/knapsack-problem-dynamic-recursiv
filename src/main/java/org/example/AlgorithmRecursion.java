@@ -7,23 +7,14 @@ import java.util.List;
  * Class to solve the knapsack problem using recursion.
  * Implements Runnable to allow execution in a separate thread.
  */
-public class AlgorithmRecursion implements Runnable {
-
-    // Maximum weight capacity of the knapsack
-    private final int W;
-    // Array of item weights
-    private final int[] wt;
-    // Array of item values
-    private final int[] val;
+public class AlgorithmRecursion extends Algorithm {
 
     /**
      * Constructor to initialize the knapsack's capacity and item arrays.
      * @param data Algorithm input data
      */
     public AlgorithmRecursion(InputData data) {
-        this.W = data.capacity(); // Get the knapsack capacity from the first element of columnA
-        this.wt = data.weights().stream().mapToInt(Integer::intValue).toArray(); // Convert columnB to an array of item weights
-        this.val = data.values().stream().mapToInt(Integer::intValue).toArray(); // Convert columnC to an array of item values
+        super(data, "RECURSIVE");
     }
 
     /**
@@ -31,7 +22,7 @@ public class AlgorithmRecursion implements Runnable {
      * @return An array containing the maximum value at index 0,
      *         followed by the weights and values of the selected items.
      */
-    public int[] knapSack() {
+    public int[] runAlgorithm() {
         int n = val.length;
         // Lists to store the selected items' weights and values
         List<Integer> selectedWeights = new ArrayList<>();
@@ -103,25 +94,4 @@ public class AlgorithmRecursion implements Runnable {
         }
     }
 
-    /**
-     * Runnable method to execute the recursive knapsack algorithm.
-     * Measures and prints the time taken for execution.
-     */
-    @Override
-    public void run() {
-
-        final long timeStart = System.currentTimeMillis();
-        try {
-            int[] result = knapSack();
-            System.out.println("Maximum value (Recursion): " + result[0]);
-            for (int i = 1; i < result.length; i += 2) {
-                System.out.println("Weight: " + result[i] + ", Value: " + result[i + 1]);
-            }
-        } catch (StackOverflowError e) {
-            System.out.println("Too much data for recursion!");
-        }
-
-        final long timeEnd = System.currentTimeMillis();
-        System.out.println("Time of Recursion Algorithm: " + (timeEnd - timeStart) + " Millisec.");
-    }
 }

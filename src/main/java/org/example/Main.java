@@ -108,12 +108,14 @@ public class Main {
             try {
                 System.out.println("Waiting for the dynamic algorithm to finish...");
                 dynamicThread.join();
+            } catch (InterruptedException e) {
+                // just continue, this thread is not expected to be interupted
+            }
+            try {
                 System.out.println("waiting for the recursive algorithm to finish...");
                 recursionThread.join();
             } catch (InterruptedException e) {
-                dynamicThread.stop();
-                recursionThread.stop();
-                System.out.println("Both Threads stopped");
+                // just continue, this thread is not expected to be interupted
             }
 
             System.out.println("""

@@ -3,25 +3,24 @@ package org.example;
 import java.util.List;
 
 /**
- * Record class to encapsulate data extracted from an Excel sheet.
- * It contains three lists representing data from three columns.
+ * Record class to encapsulate data extracted from an Excel sheet or from manual input.
  *
- * @param columnA List of Integer values from column A.
- * @param columnB List of Integer values from column B.
- * @param columnC List of Integer values from column C.
+ * @param capacity A capacity of the knapsack
+ * @param weights List of weights
+ * @param values List of values
  */
-public record InputData(List<Integer> columnA, List<Integer> columnB, List<Integer> columnC) {
+public record InputData(Integer capacity, List<Integer> weights, List<Integer> values) {
 
     /**
-     * Overridden toString method to provide a string representation of the ExcelData object.
-     * @return A string representation of the ExcelData object.
+     * Overridden toString method to provide a string representation of the InputData object.
+     * @return A string representation of the InputData object.
      */
     @Override
     public String toString() {
-        return "ExcelData{" +
-                "columnA=" + columnA +
-                ", columnB=" + columnB +
-                ", columnC=" + columnC +
+        return "InputData{" +
+                "Capacity=" + capacity +
+                ", weights=" + weights +
+                ", values=" + values +
                 '}';
     }
 }

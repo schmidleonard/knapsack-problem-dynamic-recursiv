@@ -30,7 +30,27 @@ abstract class Algorithm implements Runnable {
         System.out.println(this.label + ": " + message);
     }
 
+    /**
+     * The actual algorithm
+     * @return An array containing the maximum value at index 0,
+     *         followed by the weights and values of the selected items.
+     */
     abstract protected int[] runAlgorithm();
+
+
+    /**
+     * Print the algorithm result
+     * @param result An array containing the maximum value at index 0,
+     *               followed by the weights and values of the selected items.
+     */
+    private void printResult(int[] result) {
+        synchronized (System.out) {
+            this.report("Maximum value: " + result[0]);
+            for (int i = 1; i < result.length; i += 2) {
+                this.report("Weight: " + result[i] + ", Value: " + result[i + 1]);
+            }
+        }
+    }
 
     /**
      * Runnable method to execute the knapsack algorithm.
@@ -41,11 +61,7 @@ abstract class Algorithm implements Runnable {
         final long timeStart = System.currentTimeMillis();
         try {
             int[] result = runAlgorithm();
-            // TODO: this should be synchronized - when more algorithms/threads would be writing the report at the some time (e.g. for small backpacks of around 6 items), it might be interleaved
-            this.report("Maximum value: " + result[0]);
-            for (int i = 1; i < result.length; i += 2) {
-                this.report("Weight: " + result[i] + ", Value: " + result[i + 1]);
-            }
+            printResult(result);
         } catch (StackOverflowError e) {
             this.report("Too much data!");
         }

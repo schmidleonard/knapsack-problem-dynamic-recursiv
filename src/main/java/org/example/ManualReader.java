@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class ManualReader {
     public static InputData manualInput() {
+        @SuppressWarnings("resource") // System.in is safely close at the end of execution
         Scanner userInput = new Scanner(System.in);
         List<Integer> weights = new ArrayList<>();
         List<Integer> values = new ArrayList<>();

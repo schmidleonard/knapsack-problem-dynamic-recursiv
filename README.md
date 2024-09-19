@@ -2,7 +2,8 @@
 
 
 This repository contains a Java program to solve the Knapsack Problem using dynamic and recursive algorithms. It demonstrates the efficiency of the dynamic approach compared to the recursive solution.
-Overview
+
+## Overview
 
 The Knapsack Problem is a classic optimization problem where the goal is to pack a set of items with given weights and values into a knapsack with a limited capacity to maximize the total value.
 If you want to know more about the knapsack problem, click here: https://de.wikipedia.org/wiki/Rucksackproblem

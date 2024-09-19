@@ -7,38 +7,24 @@ import java.util.List;
  * Class to solve the knapsack problem using dynamic programming.
  * Implements Runnable to allow execution in a separate thread.
  */
-public class AlgorithmDynamic implements Runnable {
-
-    // Maximum weight capacity of the knapsack
-    private final int W;
-    // Array of item weights
-    private final int[] wt;
-    // Array of item values
-    private final int[] val;
+public class AlgorithmDynamic extends Algorithm {
 
     /**
      * Constructor to initialize the knapsack's capacity and item arrays.
-     * @param columnA List containing the knapsack capacity as its first element.
-     * @param columnB List of item weights.
-     * @param columnC List of item values.
+     * @param data Algorithm input data
      */
-    public AlgorithmDynamic(List<Integer> columnA, List<Integer> columnB, List<Integer> columnC) {
-        this.W = columnA.getFirst(); // Get the knapsack capacity from the first element of columnA
-        this.wt = columnB.stream().mapToInt(Integer::intValue).toArray(); // Convert columnB to an array of item weights
-        this.val = columnC.stream().mapToInt(Integer::intValue).toArray(); // Convert columnC to an array of item values
+    public AlgorithmDynamic(InputData data) {
+        super(data, "DYNAMIC");
     }
 
     /**
      * Method to solve the knapsack problem using dynamic programming.
-     * @param W The maximum weight capacity of the knapsack.
-     * @param wt Array of item weights.
-     * @param val Array of item values.
-     * @param n Number of items.
      * @return An array containing the maximum value at index 0,
      *         followed by the weights and values of the selected items.
      */
-    public static int[] knapSack(int W, int[] wt, int[] val, int n) {
+    protected int[] runAlgorithm() {
         int i, w;
+        int n = val.length;
         int[][] K = new int[n + 1][W + 1];
 
         // Build table K[][] in bottom-up manner
@@ -92,25 +78,4 @@ public class AlgorithmDynamic implements Runnable {
         return result;
     }
 
-    /**
-     * Runnable method to execute the dynamic knapsack algorithm.
-     * Measures and prints the time taken for execution.
-     */
-    @Override
-    public void run() {
-        final long timeStart = System.currentTimeMillis();
-        try {
-            int n = val.length;
-            int[] result = knapSack(W, wt, val, n);
-            System.out.println("Maximum value (Dynamic): " + result[0]);
-            for (int i = 1; i < result.length; i += 2) {
-                System.out.println("Weight: " + result[i] + ", Value: " + result[i + 1]);
-            }
-        } catch (StackOverflowError e) {
-            System.out.println("Too much data!");
-        }
-
-        final long timeEnd = System.currentTimeMillis();
-        System.out.println("Time of Dynamic Algorithm: " + (timeEnd - timeStart) + " Millisek.");
-    }
 }
